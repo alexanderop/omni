@@ -15,13 +15,17 @@ passthrough escape hatch.
 - **Effect services use `Effect.Service`** — see `src/services/*Backend.ts`.
 - **Errors are `Data.TaggedError`** with `_tag` discriminants — see
   `src/domain/errors.ts`.
-- **Branded IDs** (e.g. `BackendName`, `SessionId`) live in `src/domain/ids.ts`
+- **Branded literal types** (`Backend`, `SessionId`) live in `src/domain/ids.ts`
   and are constructed at the orchestrator boundary, never inside services.
 - **Subprocess spawning goes through `src/lib/spawn.ts`** which wraps
-  `@effect/platform/Command`. Don't import `node:child_process` directly.
+  `@effect/platform/Command`. Don't import `node:child_process` directly,
+  except in `src/bin.ts` where the passthrough fast-path needs to bypass
+  Effect entirely so `--version` and `--help` reach the wrapped CLI.
 - **Tests use `@effect/vitest`** (`it.effect`).
-- **Lint/format**: ESLint flat config + dprint via `@effect/eslint-plugin`.
-  Run `pnpm check` before committing.
+- **Lint/format**: `oxlint --type-aware` + `oxfmt`. Project-specific rules
+  live in `tooling/oxlint-plugin.js` (namespace `omni/`); base rule set is
+  configured in `.oxlintrc.json`. Run `pnpm check` before committing —
+  it runs build, typecheck, lint, format-check, and tests in one go.
 
 ## When you need to look up Effect
 
@@ -57,6 +61,6 @@ For subprocess work, see `@effect/platform/Command` —
 
 1. **Fresh agent context per task.** Avoid long sessions that accrete failed
    attempts and biased priors.
-2. **Don't bypass diagnostics.** TypeScript errors, ESLint errors, and failing
+2. **Don't bypass diagnostics.** TypeScript errors, oxlint errors, and failing
    tests are the playpen. If a rule blocks you, fix the code or argue for
    removing the rule — don't disable it inline.
