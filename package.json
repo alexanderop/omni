@@ -1,0 +1,57 @@
+{
+  "name": "omni-cli",
+  "version": "0.0.0",
+  "description": "Unified wrapper around Claude Code, Codex, and GitHub Copilot CLIs",
+  "type": "module",
+  "bin": {
+    "omni": "./dist/bin.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexanderop/omni.git"
+  },
+  "keywords": [
+    "claude",
+    "codex",
+    "copilot",
+    "cli",
+    "effect",
+    "agent"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc -b tsconfig.build.json",
+    "dev": "tsx src/bin.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "check": "pnpm typecheck && pnpm lint && prettier --check ."
+  },
+  "dependencies": {
+    "@effect/cli": "^0.75.1",
+    "@effect/platform": "^0.96.1",
+    "@effect/platform-node": "^0.106.0",
+    "effect": "^3.21.2"
+  },
+  "devDependencies": {
+    "@effect/eslint-plugin": "^0.3.2",
+    "@effect/vitest": "^0.29.0",
+    "@types/node": "^22.10.0",
+    "eslint": "^9.16.0",
+    "prettier": "^3.4.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0",
+    "typescript-eslint": "^8.18.0",
+    "vitest": "^3.2.0"
+  },
+  "packageManager": "pnpm@9.15.0"
+}
