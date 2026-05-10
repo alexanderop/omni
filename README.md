@@ -15,13 +15,13 @@ Combine-mode (`omni run -b all`, `omni vote`, `omni race`) is planned for v2.
 ## Install
 
 ```sh
-pnpm install
-pnpm build
+bun install
+bun run build
 node dist/bin.js --help
 ```
 
 The compiled binary is exposed as `omni` once the package is installed
-(`pnpm link --global` for local use).
+(`bun link` for local use).
 
 ## Commands
 
@@ -51,9 +51,9 @@ interface in `src/services/`.
 ## Development
 
 ```sh
-pnpm dev "run \"hello\""   # tsx, no build step
-pnpm test                  # vitest
-pnpm check                 # typecheck + lint + format check
+bun run dev "run \"hello\""   # bun runs TS directly, no build step
+bun test                       # bun's built-in test runner
+bun run check                  # build + typecheck + lint + format check + test
 ```
 
 ## Architecture

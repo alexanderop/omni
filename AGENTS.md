@@ -21,11 +21,24 @@ passthrough escape hatch.
   `@effect/platform/Command`. Don't import `node:child_process` directly,
   except in `src/bin.ts` where the passthrough fast-path needs to bypass
   Effect entirely so `--version` and `--help` reach the wrapped CLI.
-- **Tests use `@effect/vitest`** (`it.effect`).
+- **Tests use Bun's built-in runner** (`bun:test`) — imports come from
+  `bun:test`, run with `bun test`.
 - **Lint/format**: `oxlint --type-aware` + `oxfmt`. Project-specific rules
   live in `tooling/oxlint-plugin.js` (namespace `omni/`); base rule set is
-  configured in `.oxlintrc.json`. Run `pnpm check` before committing —
+  configured in `.oxlintrc.json`. Run `bun run check` before committing —
   it runs build, typecheck, lint, format-check, and tests in one go.
+
+## Toolchain
+
+This repo uses [Bun](https://bun.sh) as the package manager and runtime for
+dev/test. The published binary still targets Node — `bun run build` invokes
+`tsc` to emit `dist/bin.js`, which keeps the `#!/usr/bin/env node` shebang so
+consumers don't need Bun installed. Use:
+
+- `bun install` to install dependencies
+- `bun run dev <args>` for a no-build dev loop (Bun runs TS directly)
+- `bun test` / `bun test --watch` for the test suite
+- `bun run check` for the full CI-equivalent gate
 
 ## When you need to look up Effect
 
