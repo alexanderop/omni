@@ -8,6 +8,5 @@ const MainLayer = Layer.mergeAll(OmniConfig.Default, Backends.Default, NodeConte
 
 Effect.suspend(() => cli(process.argv)).pipe(
   Effect.provide(MainLayer),
-  Effect.tapErrorCause(Effect.logError),
-  NodeRuntime.runMain
+  NodeRuntime.runMain({ disableErrorReporting: true })
 )
