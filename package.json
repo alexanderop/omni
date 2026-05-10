@@ -25,14 +25,14 @@
 	"scripts": {
 		"build": "tsc -b tsconfig.build.json",
 		"dev": "bun src/bin.ts",
-		"test": "bun test",
-		"test:watch": "bun test --watch",
+		"test": "vitest run",
+		"test:watch": "vitest",
 		"typecheck": "tsc --noEmit",
 		"lint": "oxlint --type-aware",
 		"lint:fix": "oxlint --type-aware --fix",
 		"format": "oxfmt",
 		"format:check": "oxfmt --check",
-		"check": "bun run build && bun run typecheck && bun run lint && bun run format:check && bun test"
+		"check": "bun run build && bun run typecheck && bun run lint && bun run format:check && bun run test"
 	},
 	"dependencies": {
 		"@effect/cli": "^0.75.1",
@@ -41,12 +41,13 @@
 		"effect": "^3.21.2"
 	},
 	"devDependencies": {
-		"@types/bun": "^1.1.0",
+		"@effect/vitest": "^0.29.0",
 		"@types/node": "^22.10.0",
 		"oxfmt": "^0.48.0",
 		"oxlint": "^1.63.0",
 		"oxlint-tsgolint": "^0.22.1",
-		"typescript": "^5.7.0"
+		"typescript": "^5.7.0",
+		"vitest": "^3.2.0"
 	},
 	"engines": {
 		"bun": ">=1.1",
